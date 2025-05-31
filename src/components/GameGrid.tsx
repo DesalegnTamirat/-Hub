@@ -9,7 +9,7 @@ export default function GameGrid() {
   return (
     <>
       {error && <p className="text-2xl text-error text-center uppercase">{error}</p>}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-6 md:gap-8 p-4 md:p-8">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-8 md:gap-5 py-4 md:py-8">
         {isLoading
           ? skeletons.map((skeleton) => (
               <li key={skeleton} className="w-full max-w-md">

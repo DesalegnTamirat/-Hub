@@ -3,11 +3,7 @@ import placeholderPhoto from "../assets/no-image-placeholder.webp";
 import Platform from "./Platform";
 import CriticScore from "./CriticScore";
 
-interface Props {
-  game: Game;
-}
-
-export default function GameCard({ game }: Props) {
+export default function GameCard({ game }: {game: Game}) {
   return (
     <div className="card w-full bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl">
       {/* Image with gradient overlay */}
