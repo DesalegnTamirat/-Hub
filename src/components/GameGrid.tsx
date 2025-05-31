@@ -1,32 +1,16 @@
-import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
-
-interface Game {
-  id: number;
-  name: string;
-}
-
-interface GameResponse {
-  count: number;
-  results: Game[]
-}
+import useGames from "../hooks/useGames";
 
 export default function GameGrid() {
-  const [games, setGames] = useState<Game[]>();
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    apiClient.get<GameResponse>("/games")
-      .then(res => setGames(res.data.results))
-      .catch(err => setError(err.message));
-  });
+  const { games, error } = useGames();
 
   return (
     <>
-    <p className="text-error text-center">{error}</p>
-    <ul>
-      {games?.map(game => <li key={game.id}>{game.name}</li>)}
-    </ul>
+      <p className="text-2xl text-error text-center uppercase">{error}</p>
+      <ul>
+        {games.map((game) => (
+          <li key={game.id}>{game.name}</li>
+        ))}
+      </ul>
     </>
-  )
+  );
 }
