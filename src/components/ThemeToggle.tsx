@@ -3,17 +3,36 @@ import { useEffect } from "react";
 export default function ThemeToggle() {
   const toggleTheme = () => {
     const html = document.documentElement;
-    if (html.getAttribute("data-theme") === "dark") {
-      html.classList.remove("dark");
-      html.setAttribute("data-theme", "light");
-    } else {
+    const currentTheme = html.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    // Apply new theme
+    html.setAttribute("data-theme", newTheme);
+    if (newTheme === "dark") {
       html.classList.add("dark");
-      html.setAttribute("data-theme", "dark");
+    } else {
+      html.classList.remove("dark");
     }
+    localStorage.setItem("theme", newTheme);
   };
 
   useEffect(() => {
-    toggleTheme();
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem("theme");
+    // Check system preference
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    // Determine initial theme (saved preference > system preference > light)
+    const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light");
+    
+    // Apply theme immediately
+    const html = document.documentElement;
+    html.setAttribute("data-theme", initialTheme);
+    if (initialTheme === "dark") {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
   }, []);
 
   return (
@@ -22,6 +41,7 @@ export default function ThemeToggle() {
         type="checkbox" 
         className="sr-only peer" 
         onChange={toggleTheme}
+        checked={document.documentElement.getAttribute("data-theme") === "dark"}
       />
       <div className="w-16 h-8 bg-blue-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-8 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 dark:bg-blue-400">
         {/* Sun Icon (left side) */}
