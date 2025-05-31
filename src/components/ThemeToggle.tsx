@@ -1,13 +1,21 @@
+import { useEffect } from "react";
+
 export default function ThemeToggle() {
-  const html = document.documentElement;
   const toggleTheme = () => {
+    const html = document.documentElement;
+
     if (html.getAttribute("data-theme") === "dark") {
+      html.classList.remove("dark");
       html.setAttribute("data-theme", "light");
     } else {
+      html.classList.add("dark");
       html.setAttribute("data-theme", "dark");
     }
   };
 
+  useEffect(() => {
+    toggleTheme();
+  }, []);
   return (
     <label className="toggle md:scale-110 lg:scale-125" onChange={toggleTheme}>
       <input type="checkbox" className="theme-controller" />

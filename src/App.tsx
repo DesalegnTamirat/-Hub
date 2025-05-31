@@ -5,7 +5,7 @@ import ThemeToggle from "./components/ThemeToggle";
 export default function App() {
   return (
     <>
-      <div className="grid grid-side-main">
+      <div className="grid grid-side-main bg-blue-100 dark:bg-black">
         <div className="col-span-full">
           <NavBar />
         </div>

@@ -1,5 +1,13 @@
+/* Apply smooth transitions */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure both systems are synced on load */
+
 @import "tailwindcss";
 @plugin "daisyui";
 .grid-side-main {
   grid-template-columns: 200px 1fr;
 }
+@custom-variant dark (&:where(.dark, .dark *));

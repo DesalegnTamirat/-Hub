@@ -1,5 +1,6 @@
 import type { Game } from "../hooks/useGames";
 import placeholderPhoto from "../assets/no-image-placeholder.webp";
+import Platform from "./Platform";
 
 interface Props {
   game: Game;
@@ -7,8 +8,8 @@ interface Props {
 
 export default function GameCard({ game }: Props) {
   return (
-    <div className="card w-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-accent-content/50">
-      <figure className="relative pt-[56.25%] overflow-hidden rounded-t-lg">
+    <div className="card w-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 bg-white dark:bg-gray-800">
+      <figure className="relative pt-[65%] overflow-hidden rounded-t-lg">
         {" "}
         {/* 16:9 aspect ratio */}
         <img
@@ -18,6 +19,11 @@ export default function GameCard({ game }: Props) {
         />
       </figure>
       <div className="card-body p-5 md:p-6">
+        <span className="flex gap-1 text-red-500 dark:text-yellow-500">
+          {game.parent_platforms.map(({ platform: { name } }) => (
+            <Platform name={name} key={name}/>
+          ))}
+        </span>
         <h2 className="card-title text-xl md:text-2xl line-clamp-2 min-h-[3.5rem]">
           {game.name}
         </h2>
