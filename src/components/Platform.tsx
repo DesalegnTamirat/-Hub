@@ -17,6 +17,6 @@ export default function Platform({name}: {name: string}){
   }
   const IconComponent = mapping[name];
   
-  return IconComponent && <IconComponent/>;
+  return IconComponent && <IconComponent size={15}/>;
 
 }

@@ -3,7 +3,7 @@ import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
 interface ParentPlatform {
-  platform: {name: string}
+  platform: {name: string, slug: string}
 }
 
 export interface Game {
@@ -12,7 +12,8 @@ export interface Game {
   background_image: string,
   rating: number,
   released: string,
-  parent_platforms: ParentPlatform[]
+  parent_platforms: ParentPlatform[],
+  metacritic: number
 }
 
 interface GameResponse {
