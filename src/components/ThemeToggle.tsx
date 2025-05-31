@@ -9,7 +9,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <label className="toggle text-base- scale-150" onChange={toggleTheme}>
+    <label className="toggle md:scale-110 lg:scale-125" onChange={toggleTheme}>
       <input type="checkbox" className="theme-controller" />
       <svg
         aria-label="sun"
@@ -21,7 +21,7 @@ export default function ThemeToggle() {
           strokeLinecap="round"
           strokeWidth="3"
           fill="none"
-          stroke="rgb(150, 255, 50)"
+          stroke="currentColor"
         >
           <circle cx="12" cy="12" r="6"></circle>
           <path d="M12 2v2"></path>
@@ -45,7 +45,7 @@ export default function ThemeToggle() {
           strokeLinecap="round"
           strokeWidth="2"
           fill="none"
-          stroke="rgb(0, 255, 200)"
+          stroke="currentColor"
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </g>

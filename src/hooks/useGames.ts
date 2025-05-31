@@ -5,6 +5,9 @@ import { CanceledError } from "axios";
 export interface Game {
   id: number;
   name: string;
+  background_image: string,
+  rating: number,
+  released: string
 }
 
 interface GameResponse {
@@ -20,7 +23,7 @@ export default function useGames() {
     const controller = new AbortController();
 
     apiClient
-      .get<GameResponse>("/game", { signal: controller.signal })
+      .get<GameResponse>("/games", { signal: controller.signal })
       .then((res) => setGames(res.data.results))
       .catch((err) =>
         setError(err instanceof CanceledError ? "" : err.message)

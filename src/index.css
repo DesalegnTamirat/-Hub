@@ -1,2 +1,5 @@
 @import "tailwindcss";
 @plugin "daisyui";
+.grid-side-main {
+  grid-template-columns: 200px 1fr;
+}
