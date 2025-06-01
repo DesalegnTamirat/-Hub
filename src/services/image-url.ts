@@ -1,5 +1,5 @@
-export default function getCroppedImageUrl(url: string | undefined) {
-  if (!url) return null
+export default function getCroppedImageUrl(url: string | null) {
+  if (!url) return
 
   const target = "media/";
   const index = url.indexOf(target) + target.length;
