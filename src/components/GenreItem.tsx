@@ -30,14 +30,22 @@ export default function GenreItem({ genre, onSelectGenre, selectedGenre }: Props
           isSelected ? "opacity-70" : "opacity-0 group-hover:opacity-100"
         } transition-opacity duration-300`} />
       </div>
-      <div className="flex-1 min-w-0" onClick={() => onSelectGenre(genre)}>
-        <h3 className={`text-lg font-semibold truncate transition-colors duration-200 ${
-          isSelected 
-            ? "text-primary-content" 
-            : "text-gray-800 dark:text-gray-100 group-hover:text-primary dark:group-hover:text-primary"
-        }`}>
+      <div 
+        className="flex-1 min-w-0 relative"
+        onClick={() => onSelectGenre(genre)}
+      >
+        <h3 
+          className={`text-lg font-semibold truncate transition-colors duration-200 ${
+            isSelected 
+              ? "text-primary-content" 
+              : "text-gray-800 dark:text-gray-100 group-hover:text-primary dark:group-hover:text-primary"
+          }`}
+          title={genre.name} // Shows full text on hover
+        >
           {genre.name}
         </h3>
+        {/* Tooltip for mobile/touch devices */}
+        <div className="absolute inset-0 lg:hidden" title={genre.name}></div>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"

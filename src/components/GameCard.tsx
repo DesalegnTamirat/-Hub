@@ -1,8 +1,8 @@
 import type { Game } from "../hooks/useGames";
-import placeholderPhoto from "../assets/no-image-placeholder.webp";
-import Platform from "./Platform";
+import Platform from "./PlatformMapping";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
+import placeholderImage from "../assets/no-image-placeholder.webp";
 
 export default function GameCard({ game }: { game: Game }) {
   return (
@@ -11,7 +11,7 @@ export default function GameCard({ game }: { game: Game }) {
       <figure className="relative pt-[56.25%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <img
-          src={getCroppedImageUrl(game.background_image)}
+          src={game.background_image ? getCroppedImageUrl(game.background_image) : placeholderImage}
           alt={game.name}
           className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -35,11 +35,11 @@ export default function GameCard({ game }: { game: Game }) {
 
         {/* Platforms */}
         <div className="flex gap-2 mb-1">
-          {game.parent_platforms.map(({ platform: { name, slug } }) => (
+          {game.parent_platforms.map(({ platform: { name } }) => (
             <span
               key={name}
               className="tooltip tooltip-bottom tooltip-primary"
-              data-tip={slug}
+              data-tip={name}
             >
               <Platform name={name} />
             </span>

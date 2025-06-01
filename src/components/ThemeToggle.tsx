@@ -41,12 +41,11 @@ export default function ThemeToggle() {
         type="checkbox" 
         className="sr-only peer" 
         onChange={toggleTheme}
-        checked={document.documentElement.getAttribute("data-theme") === "dark"}
       />
-      <div className="w-16 h-8 bg-blue-900 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-8 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 dark:bg-blue-400">
+      <div className="w-16 h-8 bg-blue-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-8 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:bg-blue-600">
         {/* Sun Icon (left side) */}
         <svg
-          className="absolute left-1 top-1 w-5 h-5 text-yellow-300"
+          className="absolute left-1 top-1 w-5 h-5 text-yellow-500"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -71,7 +70,7 @@ export default function ThemeToggle() {
 
         {/* Moon Icon (right side) */}
         <svg
-          className="absolute right-1 top-1 w-5 h-5 text-indigo-200"
+          className="absolute right-1 top-1 w-5 h-5 text-yellow-600"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
