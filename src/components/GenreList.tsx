@@ -1,20 +1,22 @@
-import useGenres from "../hooks/useGenres";
+import useGenres, { type Genre } from "../hooks/useGenres";
 import GenreItem from "./GenreItem";
 
-export default function GenreList() {
-  const { data: genres, error, isLoading } = useGenres();
+interface Props {
+  onSelectGenre: (genre: Genre) => void
+}
 
+export default function GenreList({onSelectGenre}: Props) {
+  const { data: genres, error, isLoading } = useGenres();
+  if (error) return;
+  
   return (
     <div className="pt-7">
-      {error && (
-        <p className="text-lg text-error text-center uppercase">{error}</p>
-      )}
       {isLoading && (
         <span className="loading loading-spinner loading-xl block mx-auto"></span>
       )}
       <div>
         {genres.map((genre) => (
-          <GenreItem genre={genre} key={genre.id}/>
+          <GenreItem genre={genre} key={genre.id} onSelectGenre={onSelectGenre}/>
         ))}
       </div>
     </div>

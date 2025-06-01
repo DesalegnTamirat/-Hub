@@ -3,7 +3,7 @@ import placeholderPhoto from "../assets/no-image-placeholder.webp";
 import Platform from "./Platform";
 import CriticScore from "./CriticScore";
 
-export default function GameCard({ game }: {game: Game}) {
+export default function GameCard({ game }: { game: Game }) {
   return (
     <div className="card w-full bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl">
       {/* Image with gradient overlay */}
@@ -35,7 +35,13 @@ export default function GameCard({ game }: {game: Game}) {
         {/* Platforms */}
         <div className="flex gap-2 mb-1">
           {game.parent_platforms.map(({ platform: { name, slug } }) => (
-            <span className="tooltip tooltip-bottom tooltip-primary" data-tip={slug}><Platform name={name} key={name} /></span>
+            <span
+              key={name}
+              className="tooltip tooltip-bottom tooltip-primary"
+              data-tip={slug}
+            >
+              <Platform name={name} />
+            </span>
           ))}
         </div>
 
@@ -51,7 +57,7 @@ export default function GameCard({ game }: {game: Game}) {
               {new Date(game.released).getFullYear()}
             </div>
           )}
-        <CriticScore score={game.metacritic}/>
+          <CriticScore score={game.metacritic} />
         </div>
 
         {/* Action button */}
