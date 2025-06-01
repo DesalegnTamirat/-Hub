@@ -8,7 +8,6 @@ import { type Genre } from "./hooks/useGenres";
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   function handleSelectGenre(genre: Genre) {
-    console.log(genre);
     setSelectedGenre(genre);
   }
 
@@ -18,7 +17,7 @@ export default function App() {
         <div className="col-span-full">
           <NavBar />
         </div> 
-        <div className="lg:block hidden"><GenreList onSelectGenre={handleSelectGenre}/></div>
+        <div className="lg:block hidden"><GenreList onSelectGenre={handleSelectGenre} selectedGenre={selectedGenre}/></div>
         <div className="col-span-full lg:col-span-1"><GameGrid selectedGenre={selectedGenre}/></div>
       </div>
       <div className="absolute top-3 right-3">

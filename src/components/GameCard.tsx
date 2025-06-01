@@ -2,6 +2,7 @@ import type { Game } from "../hooks/useGames";
 import placeholderPhoto from "../assets/no-image-placeholder.webp";
 import Platform from "./Platform";
 import CriticScore from "./CriticScore";
+import getCroppedImageUrl from "../services/image-url";
 
 export default function GameCard({ game }: { game: Game }) {
   return (
@@ -10,7 +11,7 @@ export default function GameCard({ game }: { game: Game }) {
       <figure className="relative pt-[56.25%] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <img
-          src={game.background_image || placeholderPhoto}
+          src={getCroppedImageUrl(game.background_image)}
           alt={game.name}
           className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />

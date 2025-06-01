@@ -2,10 +2,11 @@ import useGenres, { type Genre } from "../hooks/useGenres";
 import GenreItem from "./GenreItem";
 
 interface Props {
-  onSelectGenre: (genre: Genre) => void
+  onSelectGenre: (genre: Genre) => void,
+  selectedGenre: Genre | null
 }
 
-export default function GenreList({onSelectGenre}: Props) {
+export default function GenreList({onSelectGenre, selectedGenre}: Props) {
   const { data: genres, error, isLoading } = useGenres();
   if (error) return;
   
@@ -16,7 +17,7 @@ export default function GenreList({onSelectGenre}: Props) {
       )}
       <div>
         {genres.map((genre) => (
-          <GenreItem genre={genre} key={genre.id} onSelectGenre={onSelectGenre}/>
+          <GenreItem genre={genre} key={genre.id} onSelectGenre={onSelectGenre} selectedGenre={selectedGenre}/>
         ))}
       </div>
     </div>
