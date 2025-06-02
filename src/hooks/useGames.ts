@@ -1,3 +1,4 @@
+import type { Order } from "../components/SortSelector";
 import useData from "./useData";
 import type { Genre } from "./useGenres";
 import type { Platform } from "./usePlatforms";
@@ -16,6 +17,6 @@ export interface Game {
   metacritic: number;
 }
 
-const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null) => useData<Game>("/games", { params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id}}, [selectedGenre?.id, selectedPlatform?.id]); 
+const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null, selectedOrder: string | null) => useData<Game>("/games", { params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id, ordering: selectedOrder}}, [selectedGenre?.id, selectedPlatform?.id, selectedOrder]);
 
 export default useGames;

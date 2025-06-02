@@ -3,18 +3,11 @@ import { BiChevronDown } from "react-icons/bi";
 
 export type Order = "name" | "released" | "rating" | "metacritic";
 interface Props {
-  selectedOrder: Order | null;
-  onSelectOrder: (order: Order | null) => void;
+  ascendingOrdering: boolean;
+  onAscendingOrdering: (isAscending: boolean) => void;
 }
 
-export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
-  const orders: Order[] = ["name", "rating", "released", "metacritic"];
-  const mapping = {
-    name: "Name",
-    rating: "Rating",
-    released: "Date Released",
-    metacritic: "Popularity",
-  };
+export default function SortOrderingSelector({ ascendingOrdering, onAscendingOrdering }: Props) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
 
@@ -41,8 +34,8 @@ export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
     };
   }, [open]);
 
-  const handleSelect = (order: Order | null) => {
-    onSelectOrder(order);
+  const handleSelect = (isAscending: boolean) => {
+    onAscendingOrdering(isAscending);
     // Add small delay for visual feedback
     setTimeout(() => setOpen(false), 150);
   };
@@ -56,7 +49,7 @@ export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
         onMouseDown={() => setOpen(!open)}
         onKeyDown={(e) => e.key === "Enter" && setOpen(!open)}
       >
-        {selectedOrder ? mapping[selectedOrder] : "Relevance"}
+        {ascendingOrdering ? "Ascending" : "Descending"}
         <BiChevronDown
           size={20}
           className={`transition-transform ${open ? "rotate-180" : ""}`}
@@ -68,18 +61,16 @@ export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
           // Prevent immediate closing when clicking inside dropdown
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <li onMouseDown={() => handleSelect(null)}>
+          <li onMouseDown={() => handleSelect(true)}>
               <button className="text-sm px-4 py-2 hover:bg-primary hover:text-primary-content rounded-md transition-colors w-full text-left active:scale-95">
-                Relevance
+                Ascending
               </button>
             </li>
-          {orders.map((order) => (
-            <li key={order} onMouseDown={() => handleSelect(order)}>
+          <li onMouseDown={() => handleSelect(false)}>
               <button className="text-sm px-4 py-2 hover:bg-primary hover:text-primary-content rounded-md transition-colors w-full text-left active:scale-95">
-                {mapping[order]}
+                Descending
               </button>
             </li>
-          ))}
         </ul>
       )}
     </div>

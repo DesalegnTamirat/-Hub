@@ -7,21 +7,26 @@ import { type Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { type Platform } from "./hooks/usePlatforms";
 import SortSelector, { type Order } from "./components/SortSelector";
+import SortOrderingSelector from "./components/SortOrderingSelector";
 
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
-  const [selectedOrder, setSelectedOrder] = useState<Order>("relevance");
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [ascendingOrdering, setAscendingOrdering] = useState(false);
   function handleSelectGenre(genre: Genre) {
     setSelectedGenre(genre);
   }
   function handleSelectedPlatform(platform: Platform) {
     setSelectedPlatform(platform);
   }
-  function handleSelectedOrder(order: Order) {
+  function handleSelectedOrder(order: Order | null) {
     setSelectedOrder(order);
+  }
+  function onAscendingOrdering(isAscending: boolean) {
+    setAscendingOrdering(isAscending);
   }
 
   return (
@@ -66,11 +71,16 @@ export default function App() {
               selectedOrder={selectedOrder}
               onSelectOrder={handleSelectedOrder}
             />
+            <SortOrderingSelector 
+            ascendingOrdering={ascendingOrdering}
+            onAscendingOrdering={onAscendingOrdering}
+            />
           </div>
           <GameGrid
             selectedGenre={selectedGenre}
             selectedPlatform={selectedPlatform}
             selectedOrder={selectedOrder}
+            ascendingOrdering={ascendingOrdering}
           />
         </div>
       </div>

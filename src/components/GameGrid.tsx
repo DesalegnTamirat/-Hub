@@ -9,12 +9,12 @@ import type { Order } from "./SortSelector";
 interface Props {
   selectedGenre: Genre | null,
   selectedPlatform: Platform | null
-  selectedOrder: Order
+  selectedOrder: Order | null,
+  ascendingOrdering: boolean
 }
 
-export default function GameGrid({selectedGenre, selectedPlatform, selectedOrder}: Props) {
-  const { data: games, error, isLoading } = useGames(selectedGenre, selectedPlatform);
-  const sortedGames = sortGames(games, selectedOrder);
+export default function GameGrid({selectedGenre, selectedPlatform, selectedOrder, ascendingOrdering}: Props) {
+  const { data: games, error, isLoading } = useGames(selectedGenre, selectedPlatform, ascendingOrdering ? selectedOrder : "-" + selectedOrder);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
@@ -27,7 +27,7 @@ export default function GameGrid({selectedGenre, selectedPlatform, selectedOrder
                 <GameCardSkeleton />
               </li>
             ))
-          : sortedGames.map((game) => (
+          : games.map((game) => (
               <li key={game.id} className="w-full max-w-md">
                 <GameCard game={game} />
               </li>
