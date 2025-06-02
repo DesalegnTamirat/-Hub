@@ -1,16 +1,20 @@
 import useGames from "../hooks/useGames";
 import type { Genre } from "../hooks/useGenres";
 import type { Platform } from "../hooks/usePlatforms";
+import { sortGames } from "../services/sortingGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
+import type { Order } from "./SortSelector";
 
 interface Props {
   selectedGenre: Genre | null,
   selectedPlatform: Platform | null
+  selectedOrder: Order
 }
 
-export default function GameGrid({selectedGenre, selectedPlatform}: Props) {
+export default function GameGrid({selectedGenre, selectedPlatform, selectedOrder}: Props) {
   const { data: games, error, isLoading } = useGames(selectedGenre, selectedPlatform);
+  const sortedGames = sortGames(games, selectedOrder);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
@@ -23,7 +27,7 @@ export default function GameGrid({selectedGenre, selectedPlatform}: Props) {
                 <GameCardSkeleton />
               </li>
             ))
-          : games.map((game) => (
+          : sortedGames.map((game) => (
               <li key={game.id} className="w-full max-w-md">
                 <GameCard game={game} />
               </li>

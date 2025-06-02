@@ -5,27 +5,26 @@ export default function ThemeToggle() {
     const html = document.documentElement;
     const currentTheme = html.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
-    
-    // Apply new theme
-    html.setAttribute("data-theme", newTheme);
-    if (newTheme === "dark") {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-    localStorage.setItem("theme", newTheme);
+
+    setTimeout(() => {
+      if (newTheme === "dark") {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+    }, 200); 
   };
 
   useEffect(() => {
-    // Check for saved theme preference
     const savedTheme = localStorage.getItem("theme");
-    // Check system preference
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    // Determine initial theme (saved preference > system preference > light)
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
     const initialTheme = savedTheme || (systemPrefersDark ? "dark" : "light");
-    
-    // Apply theme immediately
+
     const html = document.documentElement;
     html.setAttribute("data-theme", initialTheme);
     if (initialTheme === "dark") {
@@ -37,11 +36,7 @@ export default function ThemeToggle() {
 
   return (
     <label className="relative inline-flex items-center cursor-pointer">
-      <input 
-        type="checkbox" 
-        className="sr-only peer" 
-        onChange={toggleTheme}
-      />
+      <input type="checkbox" className="sr-only peer" onChange={toggleTheme} />
       <div className="w-16 h-8 bg-blue-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-8 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:bg-blue-600">
         {/* Sun Icon (left side) */}
         <svg

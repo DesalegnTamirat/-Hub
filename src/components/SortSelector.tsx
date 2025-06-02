@@ -1,19 +1,29 @@
 import { useState, useRef, useEffect } from "react";
 import { BiChevronDown } from "react-icons/bi";
-import usePlatform, { type Platform } from "../hooks/usePlatforms";
 
+export type Order = "relevance" | "name" | "rating" | "released" | "metacritic";
 interface Props {
-  selectedPlatform: Platform | null;
-  onSelectPlatform: (platform: Platform) => void;
+  selectedOrder: Order;
+  onSelectOrder: (order: Order) => void;
 }
 
-export default function PlatformSelector({
-  selectedPlatform,
-  onSelectPlatform,
-}: Props) {
-  const { data: platforms, error } = usePlatform("platforms/lists/parents");
-  const [open, setOpen] = useState(false);
+export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
+  const orders: Order[] = [
+    "relevance",
+    "name",
+    "rating",
+    "released",
+    "metacritic",
+  ];
+  const mapping = {
+    relevance: "Relevance",
+    name: "Name",
+    rating: "Rating",
+    released: "Date Released",
+    metacritic: "Popularity",
+  };
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,12 +48,11 @@ export default function PlatformSelector({
     };
   }, [open]);
 
-  const handleSelect = (platform: Platform | null) => {
-    onSelectPlatform(platform!);
+  const handleSelect = (order: Order) => {
+    onSelectOrder(order);
+    // Add small delay for visual feedback
     setTimeout(() => setOpen(false), 150);
   };
-
-  if (error) return null;
 
   return (
     <div ref={dropdownRef} className="relative mb-4">
@@ -54,27 +63,22 @@ export default function PlatformSelector({
         onMouseDown={() => setOpen(!open)}
         onKeyDown={(e) => e.key === "Enter" && setOpen(!open)}
       >
-        {selectedPlatform?.name || "All Platforms"}
+        {selectedOrder ? mapping[selectedOrder] : "Relevance"}
         <BiChevronDown
           size={20}
           className={`transition-transform ${open ? "rotate-180" : ""}`}
         />
       </div>
-
       {open && (
         <ul
           className="absolute top-full left-0 mt-1 p-2 shadow-lg bg-base-100 rounded-box w-56 z-10 border border-base-200"
+          // Prevent immediate closing when clicking inside dropdown
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <li onMouseDown={() => handleSelect(null)}>
-            <button className="text-sm px-4 py-2 hover:bg-primary hover:text-primary-content rounded-md transition-colors w-full text-left active:scale-95">
-              All Platforms
-            </button>
-          </li>
-          {platforms?.map((platform) => (
-            <li key={platform.id} onMouseDown={() => handleSelect(platform)}>
+          {orders.map((order) => (
+            <li key={order} onMouseDown={() => handleSelect(order)}>
               <button className="text-sm px-4 py-2 hover:bg-primary hover:text-primary-content rounded-md transition-colors w-full text-left active:scale-95">
-                {platform.name}
+                {mapping[order]}
               </button>
             </li>
           ))}

@@ -6,24 +6,49 @@ import ThemeToggle from "./components/ThemeToggle";
 import { type Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { type Platform } from "./hooks/usePlatforms";
+import SortSelector, { type Order } from "./components/SortSelector";
 
 export default function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
     null
   );
+  const [selectedOrder, setSelectedOrder] = useState<Order>("relevance");
   function handleSelectGenre(genre: Genre) {
     setSelectedGenre(genre);
   }
   function handleSelectedPlatform(platform: Platform) {
     setSelectedPlatform(platform);
   }
+  function handleSelectedOrder(order: Order) {
+    setSelectedOrder(order);
+  }
 
   return (
     <>
-      <div className="grid grid-side-main bg-blue-100 dark:bg-black px-8 lg:px-5">
-        <div className="col-span-full">
+      <div className="grid grid-side-main bg-blue-100 dark:bg-black px-8 lg:px-5 transition-all gap-2">
+        <div className="col-span-full flex items-center justify-between -mx- gap-10">
           <NavBar />
+          <label className="input w-full rounded-3xl">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input type="search" required placeholder="Search" />
+          </label>
+          <ThemeToggle />
         </div>
         <div className="lg:block hidden">
           <GenreList
@@ -32,12 +57,22 @@ export default function App() {
           />
         </div>
         <div className="col-span-full lg:col-span-1 py-4 md:py-8">
-          <PlatformSelector onSelectPlatform={handleSelectedPlatform} selectedPlatform={selectedPlatform}/>
-          <GameGrid selectedGenre={selectedGenre} selectedPlatform={selectedPlatform}/>
+          <div className="flex gap-3 mt-2">
+            <PlatformSelector
+              onSelectPlatform={handleSelectedPlatform}
+              selectedPlatform={selectedPlatform}
+            />
+            <SortSelector
+              selectedOrder={selectedOrder}
+              onSelectOrder={handleSelectedOrder}
+            />
+          </div>
+          <GameGrid
+            selectedGenre={selectedGenre}
+            selectedPlatform={selectedPlatform}
+            selectedOrder={selectedOrder}
+          />
         </div>
-      </div>
-      <div className="absolute top-3 right-3">
-        <ThemeToggle />
       </div>
     </>
   );
