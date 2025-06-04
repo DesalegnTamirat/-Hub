@@ -4,7 +4,7 @@ interface Props{
   isMobileMenuOpen: boolean
 };
 
-export default function MobileMenu({isMobileMenuOpen, searchKeyword, onSubmitKeyword}: Props & SearchProps) {
+export default function MobileMenu({isMobileMenuOpen, onSubmitKeyword}: Props & SearchProps) {
   return (
       <div
         className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
@@ -13,7 +13,7 @@ export default function MobileMenu({isMobileMenuOpen, searchKeyword, onSubmitKey
       >
         <div className="px-4 pt-2 pb-4 space-y-2 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <div className="relative mt-2">
-            <SearchBar searchKeyword={searchKeyword} onSubmitKeyword={onSubmitKeyword}/>
+            <SearchBar onSubmitKeyword={onSubmitKeyword}/>
           </div>
           <a
             href="#"

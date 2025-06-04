@@ -1,5 +1,4 @@
 import { FiMenu, FiX } from "react-icons/fi";
-import ThemeToggle from "./ThemeToggle";
 
 interface Props {
   isMobileMenuOpen: boolean;

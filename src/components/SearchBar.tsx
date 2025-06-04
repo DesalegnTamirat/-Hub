@@ -2,11 +2,10 @@ import { useRef, type FormEvent } from "react";
 import { FiSearch } from "react-icons/fi";
 
 export interface SearchProps {
-  searchKeyword: string,
   onSubmitKeyword: (e: FormEvent, searchKeyword: string | undefined) => void
 }
 
-export default function SearchBar({searchKeyword, onSubmitKeyword}: SearchProps) {
+export default function SearchBar({onSubmitKeyword}: SearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   return (
     <form className="relative w-64" onSubmit={(e) => onSubmitKeyword(e, inputRef.current?.value)}>

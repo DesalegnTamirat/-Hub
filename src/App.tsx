@@ -41,7 +41,6 @@ export default function App() {
     >
       <div className="col-span-full">
         <NavBar
-          searchKeyword={searchKeyword}
           onSubmitKeyword={onSubmitKeyword}
         />
       </div>

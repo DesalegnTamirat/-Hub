@@ -1,4 +1,3 @@
-import type { Order } from "../components/SortSelector";
 import useData from "./useData";
 import type { Genre } from "./useGenres";
 import type { Platform } from "./usePlatforms";
