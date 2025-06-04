@@ -32,6 +32,6 @@ export interface Game {
   suggestions_count: number,
 }
 
-const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null, selectedOrder: string | null) => useData<Game>("/games", { params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id, ordering: selectedOrder}}, [selectedGenre?.id, selectedPlatform?.id, selectedOrder]);
+const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null, selectedOrder: string | null, searchKeyword: string) => useData<Game>("/games", { params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id, ordering: selectedOrder, search: searchKeyword}}, [selectedGenre?.id, selectedPlatform?.id, selectedOrder, searchKeyword]);
 
 export default useGames;

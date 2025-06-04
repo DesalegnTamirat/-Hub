@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
@@ -15,6 +15,8 @@ export default function App() {
   );
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [ascendingOrdering, setAscendingOrdering] = useState(false);
+  const [searchKeyword, setSearchKeyWord] = useState("");
+
   function handleSelectGenre(genre: Genre) {
     setSelectedGenre(genre);
   }
@@ -27,12 +29,21 @@ export default function App() {
   function onAscendingOrdering(isAscending: boolean) {
     setAscendingOrdering(isAscending);
   }
+  function onSubmitKeyword(e: FormEvent, keyword: string | undefined) {
+    e.preventDefault();
+    if (keyword) setSearchKeyWord(keyword);
+  }
 
   return (
-    <div className="grid grid-side-main bg-blue-100 dark:bg-black
-    transition-all gap-8">
+    <div
+      className="grid grid-side-main bg-blue-100 dark:bg-black
+    transition-all gap-8"
+    >
       <div className="col-span-full">
-        <NavBar />
+        <NavBar
+          searchKeyword={searchKeyword}
+          onSubmitKeyword={onSubmitKeyword}
+        />
       </div>
       <div className="lg:block hidden pl-3 mt-20">
         <GenreList
@@ -63,6 +74,7 @@ export default function App() {
           selectedPlatform={selectedPlatform}
           selectedOrder={selectedOrder}
           ascendingOrdering={ascendingOrdering}
+          searchKeyword={searchKeyword}
         />
       </div>
     </div>

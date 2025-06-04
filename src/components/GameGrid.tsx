@@ -10,6 +10,7 @@ interface Props {
   selectedPlatform: Platform | null;
   selectedOrder: Order | null;
   ascendingOrdering: boolean;
+  searchKeyword: string;
 }
 
 export default function GameGrid({
@@ -17,6 +18,7 @@ export default function GameGrid({
   selectedPlatform,
   selectedOrder,
   ascendingOrdering,
+  searchKeyword,
 }: Props) {
   const {
     data: games,
@@ -25,13 +27,14 @@ export default function GameGrid({
   } = useGames(
     selectedGenre,
     selectedPlatform,
-    ascendingOrdering ? selectedOrder : "-" + selectedOrder
+    ascendingOrdering ? selectedOrder : "-" + selectedOrder,
+    searchKeyword
   );
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   if (error)
     return <p className="text-2xl text-error text-center uppercase">{error}</p>;
-  
+
   return (
     <>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 justify-items-center gap-8 md:gap-5">

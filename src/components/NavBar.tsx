@@ -4,8 +4,9 @@ import logo from "../assets/logo.png";
 import MobileMenu from "./MobileMenu";
 import DesktopNavigation from "./DesktopNavigation";
 import MobileMenuButton from "./MobileMenuButton";
+import type { SearchProps } from "./SearchBar";
 
-export default function NavBar() {
+export default function NavBar({searchKeyword, onSubmitKeyword}: SearchProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -33,7 +34,7 @@ export default function NavBar() {
           </a>
           <div className="flex items-center gap-3">
             {/* Desktop Navigation */}
-            <DesktopNavigation />
+            <DesktopNavigation searchKeyword={searchKeyword} onSubmitKeyword={onSubmitKeyword}/>
             {/* Mobile menu button */}
             <MobileMenuButton
               isMobileMenuOpen={isMobileMenuOpen}
@@ -46,7 +47,7 @@ export default function NavBar() {
         </div>
       </div>
       {/* Mobile Menu */}
-      <MobileMenu isMobileMenuOpen={isMobileMenuOpen} />
+      <MobileMenu isMobileMenuOpen={isMobileMenuOpen} searchKeyword={searchKeyword} onSubmitKeyword={onSubmitKeyword}/>
     </header>
   );
 }

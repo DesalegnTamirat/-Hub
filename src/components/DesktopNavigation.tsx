@@ -1,9 +1,10 @@
 import SearchBar from "./SearchBar";
+import type { SearchProps } from "./SearchBar";
 
-export default function () {
+export default function ({searchKeyword, onSubmitKeyword}: SearchProps) {
   return (
     <div className="hidden md:flex items-center gap-8">
-      <SearchBar />
+      <SearchBar searchKeyword={searchKeyword} onSubmitKeyword={onSubmitKeyword}/>
       <nav className="flex items-center gap-6">
         <a
           href="#"
