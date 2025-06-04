@@ -2,7 +2,6 @@ import { useState } from "react";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
-import ThemeToggle from "./components/ThemeToggle";
 import { type Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { type Platform } from "./hooks/usePlatforms";
@@ -30,60 +29,42 @@ export default function App() {
   }
 
   return (
-    <>
-      <div className="grid grid-side-main bg-blue-100 dark:bg-black px-8 lg:px-5 transition-all gap-2">
-        <div className="col-span-full flex items-center justify-between -mx- gap-10">
-          <NavBar />
-          <label className="input w-full rounded-3xl">
-            <svg
-              className="h-[1em] opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2.5"
-                fill="none"
-                stroke="currentColor"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </g>
-            </svg>
-            <input type="search" required placeholder="Search" />
-          </label>
-          <ThemeToggle />
-        </div>
-        <div className="lg:block hidden">
-          <GenreList
-            onSelectGenre={handleSelectGenre}
-            selectedGenre={selectedGenre}
+    <div className="grid grid-side-main bg-blue-100 dark:bg-black
+    transition-all gap-8">
+      <div className="col-span-full">
+        <NavBar />
+      </div>
+      <div className="lg:block hidden pl-3 mt-20">
+        <GenreList
+          onSelectGenre={handleSelectGenre}
+          selectedGenre={selectedGenre}
+        />
+      </div>
+      <div className="col-span-full lg:col-span-1 px-20 sm:px-10 lg:pr-10 mt-14 md:mt-18 lg:mt-20">
+        <h1 className="text-7xl font-bold">
+          {selectedPlatform?.name} {selectedGenre?.name} Games
+        </h1>
+        <div className="flex mt-8 flex-col sm:flex-row gap-0 sm:gap-3 m-auto">
+          <PlatformSelector
+            onSelectPlatform={handleSelectedPlatform}
+            selectedPlatform={selectedPlatform}
           />
-        </div>
-        <div className="col-span-full lg:col-span-1 py-4 md:py-8">
-          <div className="flex gap-3 mt-2">
-            <PlatformSelector
-              onSelectPlatform={handleSelectedPlatform}
-              selectedPlatform={selectedPlatform}
-            />
-            <SortSelector
-              selectedOrder={selectedOrder}
-              onSelectOrder={handleSelectedOrder}
-            />
-            <SortOrderingSelector 
+          <SortSelector
+            selectedOrder={selectedOrder}
+            onSelectOrder={handleSelectedOrder}
+          />
+          <SortOrderingSelector
             ascendingOrdering={ascendingOrdering}
             onAscendingOrdering={onAscendingOrdering}
-            />
-          </div>
-          <GameGrid
-            selectedGenre={selectedGenre}
-            selectedPlatform={selectedPlatform}
-            selectedOrder={selectedOrder}
-            ascendingOrdering={ascendingOrdering}
           />
         </div>
+        <GameGrid
+          selectedGenre={selectedGenre}
+          selectedPlatform={selectedPlatform}
+          selectedOrder={selectedOrder}
+          ascendingOrdering={ascendingOrdering}
+        />
       </div>
-    </>
+    </div>
   );
 }

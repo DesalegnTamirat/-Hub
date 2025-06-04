@@ -11,11 +11,12 @@ export default function GenreList({onSelectGenre, selectedGenre}: Props) {
   if (error) return;
   
   return (
-    <div className="pt-7">
+    <div>
       {isLoading && (
         <span className="loading loading-spinner loading-xl block mx-auto"></span>
       )}
       <div>
+        <h1 className="text-4xl font-bold pl-3">Genres</h1>
         {genres.map((genre) => (
           <GenreItem genre={genre} key={genre.id} onSelectGenre={onSelectGenre} selectedGenre={selectedGenre}/>
         ))}

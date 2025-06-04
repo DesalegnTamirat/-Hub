@@ -48,7 +48,7 @@ export default function SortSelector({ selectedOrder, onSelectOrder }: Props) {
   };
 
   return (
-    <div ref={dropdownRef} className="relative mb-4">
+    <div ref={dropdownRef} className="relative mb-2 sm:mb-4">
       <div
         tabIndex={0}
         role="button"

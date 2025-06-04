@@ -1,6 +1,7 @@
+
 @import "tailwindcss";
 @plugin "daisyui";
 .grid-side-main {
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 220px 1fr;
 }
 @custom-variant dark (&:where(.dark, .dark *));
