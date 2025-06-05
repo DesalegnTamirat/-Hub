@@ -3,6 +3,7 @@ import type { Genre } from "../hooks/useGenres";
 import type { Platform } from "../hooks/usePlatforms";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
+import PageNavigation from "./PageNavigation";
 import type { Order } from "./SortSelector";
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
   selectedOrder: Order | null;
   ascendingOrdering: boolean;
   searchKeyword: string;
+  endPoint: string,
+  onHandleEndPoint: (endPoint: string) => void
 }
 
 export default function GameGrid({
@@ -19,17 +22,26 @@ export default function GameGrid({
   selectedOrder,
   ascendingOrdering,
   searchKeyword,
+  onHandleEndPoint,
+  endPoint
 }: Props) {
+  
+
+
   const {
-    data: games,
+    data,
     error,
     isLoading,
   } = useGames(
+    endPoint,
     selectedGenre,
     selectedPlatform,
     ascendingOrdering ? selectedOrder : "-" + selectedOrder,
     searchKeyword
   );
+
+  const {results: games, next: nextEndPoint, previous: previousEndPoint} = {...data}
+
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   if (error)
@@ -44,12 +56,13 @@ export default function GameGrid({
                 <GameCardSkeleton />
               </li>
             ))
-          : games.map((game) => (
+          : games?.map((game) => (
               <li key={game.id} className="w-full max-w-md">
                 <GameCard game={game} />
               </li>
             ))}
       </ul>
+      <PageNavigation nextEndPoint={nextEndPoint} prevEndPoint={previousEndPoint} onHandleEndPoint={onHandleEndPoint}/>
     </>
   );
 }

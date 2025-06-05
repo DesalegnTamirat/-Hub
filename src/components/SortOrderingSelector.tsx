@@ -26,7 +26,7 @@ export default function SortOrderingSelector({ ascendingOrdering, onAscendingOrd
       if (open) {
         document.addEventListener("click", handleClickOutside);
       }
-    }, 100);
+    }, 10);
 
     return () => {
       clearTimeout(timer);
@@ -36,8 +36,7 @@ export default function SortOrderingSelector({ ascendingOrdering, onAscendingOrd
 
   const handleSelect = (isAscending: boolean) => {
     onAscendingOrdering(isAscending);
-    // Add small delay for visual feedback
-    setTimeout(() => setOpen(false), 150);
+    setOpen(false);
   };
 
   return (
@@ -45,7 +44,7 @@ export default function SortOrderingSelector({ ascendingOrdering, onAscendingOrd
       <div
         tabIndex={0}
         role="button"
-        className="btn btn-outline btn-primary px-4 py-2 gap-2 shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
+        className="btn btn-outline btn-primary px-4 py-2 gap-2 shadow-md hover:shadow-lg transition-all flex items-center"
         onMouseDown={() => setOpen(!open)}
         onKeyDown={(e) => e.key === "Enter" && setOpen(!open)}
       >

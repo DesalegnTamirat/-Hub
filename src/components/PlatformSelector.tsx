@@ -11,7 +11,10 @@ export default function PlatformSelector({
   selectedPlatform,
   onSelectPlatform,
 }: Props) {
-  const { data: platforms, error } = usePlatform("platforms/lists/parents");
+  const { data, error } = usePlatform("platforms/lists/parents");
+
+  const { results: platforms } = {...data};
+
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +33,7 @@ export default function PlatformSelector({
       if (open) {
         document.addEventListener("click", handleClickOutside);
       }
-    }, 100);
+    }, 10);
 
     return () => {
       clearTimeout(timer);
@@ -40,7 +43,7 @@ export default function PlatformSelector({
 
   const handleSelect = (platform: Platform | null) => {
     onSelectPlatform(platform!);
-    setTimeout(() => setOpen(false), 150);
+    setOpen(false);
   };
 
   if (error) return null;
@@ -50,7 +53,7 @@ export default function PlatformSelector({
       <div
         tabIndex={0}
         role="button"
-        className="btn btn-outline btn-primary px-4 py-2 gap-2 shadow-md hover:shadow-lg transition-all duration-200 flex items-center"
+        className="btn btn-outline btn-primary px-4 py-2 gap-2 shadow-md hover:shadow-lg transition-all flex items-center"
         onMouseDown={() => setOpen(!open)}
         onKeyDown={(e) => e.key === "Enter" && setOpen(!open)}
       >
